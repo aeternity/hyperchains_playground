@@ -2,7 +2,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/aeternity/hyperchains_privatenet/total) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/aeternity/aeternity) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aeternity/hyperchains_privatenet)
 
-![](images/demo/Playground.gif)
+![](docs/images/Playground.gif)
 
 ### Setup
 

@@ -15,6 +15,22 @@ services:
       vpcbr:
         ipv4_address: 10.7.0.11
 
+  krakow:
+    build: ./aeternity
+    hostname: krakow
+    environment:
+      AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
+    command: >
+      bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
+    volumes:
+      - ./node/config/krakow.yaml:/home/aeternity/aeternity.yaml
+      - ./node/krakow/krakow:/home/aeternity/node/keys
+    depends_on:
+      - bitcoin
+    networks:
+      vpcbr:
+        ipv4_address: 10.7.0.15
+
   kyiv:
     build: ./aeternity
     hostname: kyiv
@@ -23,14 +39,29 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - ${PWD}/node/config/kyiv.yaml:/home/aeternity/aeternity.yaml
-      - ${PWD}/node/keys/kyiv:/home/aeternity/node/keys
-        # - kyiv_db:/home/aeternity/node/data/mnesia
+      - ./node/config/kyiv.yaml:/home/aeternity/aeternity.yaml
+      - ./node/keys/kyiv:/home/aeternity/node/keys
     depends_on:
-      - bitcoin1
+      - bitcoin
     networks:
       vpcbr:
-        ipv4_address: 10.7.0.15
+        ipv4_address: 10.7.0.16
+
+  munich:
+    build: ./aeternity
+    hostname: munich
+    environment:
+      AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
+    command: >
+      bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
+    volumes:
+      - ./node/config/munich.yaml:/home/aeternity/aeternity.yaml
+      - ./node/keys/munich:/home/aeternity/node/keys
+    depends_on:
+      - bitcoin
+    networks:
+      vpcbr:
+        ipv4_address: 10.7.0.17
 
   proxy:
     image: nginx:1.13.8

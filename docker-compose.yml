@@ -2,47 +2,21 @@
 version: '3'
 services:
 
-  bitcoin1:
-    build: ../bitcoin
+  bitcoin:
+    build: ./bitcoin
     cap_add:
       - ALL
     command: bitcoind -addnode=10.7.0.12:12345 -addnode=10.7.0.13:12345 --wallet=skunk -port=12345
-    volumes: 
-     - ${PWD}/bitcoin1:/root/.bitcoin
-     - ${PWD}/wallets:/root/.bitcoin/wallets
-     - ${PWD}/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+    volumes:
+     - ./bitcoin1:/root/.bitcoin
+     - ./wallets:/root/.bitcoin/wallets
+     - ./bitcoin/bitcoinf.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:
         ipv4_address: 10.7.0.11
 
-  bitcoin2:
-    build: ../bitcoin
-    cap_add:
-      - ALL
-    command: bitcoind -addnode=10.7.0.11:12345 -addnode=10.7.0.13:12345 --wallet=skunk -port=12345
-    volumes:
-     - ${PWD}/bitcoin2:/root/.bitcoin
-     - ${PWD}/wallets:/root/.bitcoin/wallets
-     - ${PWD}/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-    networks:
-      vpcbr:
-        ipv4_address: 10.7.0.12
-
-  bitcoin3:
-    build: ../bitcoin
-    cap_add:
-      - ALL
-    command: bitcoind -addnode=10.7.0.12:12345 -addnode=10.7.0.11:12345 --wallet=skunk -port=12345
-    volumes:
-     - ${PWD}/bitcoin3:/root
-     - ${PWD}/wallets:/root/wallets
-     - ${PWD}/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-    networks:
-      vpcbr:
-        ipv4_address: 10.7.0.13
-
   kyiv:
-    build: ../aeternity
+    build: ./aeternity
     hostname: kyiv
     environment:
       AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
@@ -81,5 +55,3 @@ networks:
    ipam:
      config:
       - subnet: 10.7.0.0/16
-       
-        

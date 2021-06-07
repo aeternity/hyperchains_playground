@@ -2,22 +2,30 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/aeternity/hyperchains_privatenet/total) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/aeternity/aeternity) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aeternity/hyperchains_privatenet)
 
-![](docs/images/Playground.gif)
-
 ### Setup
+
+* ```git clone https://github.com/aeternity/hyperchains_playground.git```
+
+### Configuration 
 
 ### Deployment 
 
-### Playing 
+* ```docker-compose up -d```
 
+<p align="center">
+  <img src="docs/images/Setup.png" title="hover text">
+    <br>
+    <em>Deployment schema</em>
+</p>
 
-Docker-compose based configuration to easily run locally deployed dev/test network.
-Latest config files support node v5.*. For older node versions use the 1.* tags of this repository.
+### Playing transition scenario
 
-This repository provide two setups described below:
+* Election contract deployed by user
 
-* 3 Node configuration (default).
-* Single node configuration -- good if you only want to write and test your smart contracts.
+<p align="center">
+  <img src="docs/images/Playground.gif">
+</p>
+
 
 The nodes use the `mean15-generic` miner (fastest generic miner).
 As the beneficiary key-pair is publicly available, this setup should *not* be connected to public networks.
@@ -73,7 +81,6 @@ To use a Single Node Configuration just append `-f singlenode.yml` to the docker
 ```bash
 docker-compose -f singlenode.yml up
 ```
-
 
 ### Image Version
 
@@ -127,59 +134,4 @@ Node ports:
 - `node2` - port 3002
 - `node3` - port 3003
 
-For example to access `node2` peer public key, assuming docker host address is `localhost`:
 
-```bash
-curl http://localhost:3002/v2/peers/pubkey
-```
-
-To start the network:
-
-```bash
-docker-compose up -d
-```
-
-To destroy the network:
-
-```bash
-docker-compose down
-```
-
-To cleanup the associated docker volumes, `-v` option could be used:
-
-```bash
-docker-compose down -v
-```
-
-More details can be found in [`docker-compose` documentation](https://docs.docker.com/compose/reference/).
-
-### Single Node Configuraiton
-
-To use a Single Node Configuration just append `-f singlenode.yml` to the docker-compose command. Example:
-
-```bash
-docker-compose -f singlenode.yml up
-```
-
-
-### Image Version
-
-Docker compose uses the `aeternity/aeternity:latest` image by default, it will be pulled from [docker hub](https://hub.docker.com/r/aeternity/aeternity/) if it's not found locally.
-
-To change what node version is used set `IMAGE_TAG` environment variable, e.g.:
-
-```bash
-IMAGE_TAG=v4.0.0 docker-compose up -d
-```
-
-This configuration is known to work with node versions >= 2.0.0
-
-### Mining Rate
-
-By default the localnet has set default mine rate of 1 block per 15 seconds.
-It can be changed by setting `AETERNITY_MINE_RATE` environment variable.
-The variable is in milliseconds, so to set 1 block per 10 seconds use:
-
-```bash
-AETERNITY_MINE_RATE=10000 docker-compose up
-```

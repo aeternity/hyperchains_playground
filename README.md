@@ -103,35 +103,3 @@ The variable is in milliseconds, so to set 1 block per 10 seconds use:
 ```bash
 AETERNITY_MINE_RATE=10000 docker-compose up
 ```
-# Aeternity Localnet
-
-Docker-compose based configuration to easily run locally deployed dev/test network.
-Latest config files support node v5.*. For older node versions use the 1.* tags of this repository.
-
-This repository provide two setups described below:
-
-* 3 Node configuration (default).
-* Single node configuration -- good if you only want to write and test your smart contracts.
-
-The nodes use the `mean15-generic` miner (fastest generic miner).
-As the beneficiary key-pair is publicly available, this setup should *not* be connected to public networks.
-
-All local network nodes are configured with the same beneficiary account (for more details on beneficiary see [configuration documentation](https://github.com/aeternity/aeternity/blob/master/docs/configuration.md#beneficiary-account)):
-- public key: ak_twR4h7dEcUtc2iSEDv8kB7UFJJDGiEDQCXr85C3fYF8FdVdyo
-- private key secret: `secret`
-- key-pair binaries can be found in `/node/keys/beneficiary` directory of this repository
-
-All APIs (external, internal and state channels websocket) are exposed to the docker host, the URL pattern is as follows:
-- external/internal API - http://$DOCKER_HOST_ADDRESS:$NODE_PORT/
-- channels API - ws://$DOCKER_HOST_ADDRESS:$NODE_PORT/channel
-
-### 3 Node configuration (default)
-
-The multinode configuration (default) uses a proxy server to allow CORS and URL routing.
-
-Node ports:
-- `node1` - port 3001
-- `node2` - port 3002
-- `node3` - port 3003
-
-

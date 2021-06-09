@@ -6,10 +6,11 @@ services:
     build: bitcoin
     cap_add:
       - ALL
-    command: bitcoind -addnode=10.7.0.12:12345 -addnode=10.7.0.13:12345 --wallet=skunk -port=12345
+    command: >
+      sh -c "bitcoind -daemon && sleep 1 && (nohup /root/init.sh &) && tail -f /root/.bitcoin/regtest/debug.log"
     volumes:
+     - ${PWD}/bitcoin/init.sh:/root/init.sh
      - ${PWD}/bitcoin:/root/.bitcoin
-     - ${PWD}/wallets:/root/.bitcoin/wallets
      - ${PWD}/config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:

@@ -6,10 +6,9 @@ services:
     build: bitcoin
     cap_add:
       - ALL
-    command: bitcoind -addnode=10.7.0.12:12345 -addnode=10.7.0.13:12345 --wallet=skunk -port=12345
+    command: bitcoind -wallet=skunk
     volumes:
      - ${PWD}/bitcoin:/root/.bitcoin
-     - ${PWD}/wallets:/root/.bitcoin/wallets
      - ${PWD}/config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:

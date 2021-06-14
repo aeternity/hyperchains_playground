@@ -47,7 +47,7 @@ docker-compose up -d
 ```
 ```
 
-#### 8. Stope the network
+#### 8. Stop the network
 ```bash
 docker-compose down
 ```
@@ -65,9 +65,6 @@ All local network nodes are configured with the same beneficiary account (for mo
 - public key: ak_twR4h7dEcUtc2iSEDv8kB7UFJJDGiEDQCXr85C3fYF8FdVdyo
 - private key secret: `secret`
 - key-pair binaries can be found in `/node/keys/beneficiary` directory of this repository
-
-
-### Mining Rate
 
 By default the localnet has set default mine rate of 1 block per 15 seconds.
 It can be changed by setting `AETERNITY_MINE_RATE` environment variable.

@@ -1,16 +1,28 @@
-# Hyperchains playground 🕹️
+# Hyperchains Playground 🕹️
 
 ![GitHub all releases](https://img.shields.io/github/downloads/aeternity/hyperchains_privatenet/total) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/aeternity/aeternity) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aeternity/hyperchains_privatenet)
 
-### Setup
+The Hyperchains playground provides a *docker-compose* setup that runs a Bitcoin node and three Aeternity Hyperchains nodes with predefined configurations.
 
-* ```git clone https://github.com/aeternity/hyperchains_playground.git```
+## Setup
 
-### Configuration 
+Make sure you have Docker installed and running, and then follow these instructions to run the Hyperchains playground.
 
-### Deployment 
+1. Clone the repo:
+```
+git clone https://github.com/aeternity/hyperchains_playground.git
+```
 
-* ```docker-compose up -d```
+2. Clone `aeternity` inside `hyperchains_playground`:
+```
+cd hyperchains_playground
+git clone -b hyperchains-playground --single-branch https://github.com/aeternity/aeternity.git
+```
+
+3. And now run:
+```
+docker-compose up -d
+```
 
 <p align="center">
   <img src="docs/images/Setup.png" title="hover text">

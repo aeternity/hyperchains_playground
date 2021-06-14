@@ -2,27 +2,14 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/aeternity/hyperchains_privatenet/total) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/aeternity/aeternity) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aeternity/hyperchains_privatenet)
 
-The Hyperchains playground provides a *docker-compose* setup that runs a Bitcoin node and three Aeternity Hyperchains nodes with predefined configurations.
+The Hyperchains playground provides an isolated environment for Hyperchains node operators with intention to train their operational skills before Hyperchains release stage. The playground is supported by is a step-by-step guide which describes how to:
 
-## Setup
+- install Hyperchains private network 
+- setup Hyperchains activation criteria
+- configure your Bitcoin wallet to accept Hyperchains commitments
+- produce your first Hyperchains blocks
 
-Make sure you have Docker installed and running, and then follow these instructions to run the Hyperchains playground.
-
-1. Clone the repo:
-```
-git clone https://github.com/aeternity/hyperchains_playground.git
-```
-
-2. Clone `aeternity` inside `hyperchains_playground`:
-```
-cd hyperchains_playground
-git clone -b hyperchains-playground --single-branch https://github.com/aeternity/aeternity.git
-```
-
-3. And now run:
-```
-docker-compose up -d
-```
+The deployment is based on [docker-compose](https://docs.docker.com/compose/) setup that runs a Bitcoin node and three Aeternity Hyperchains nodes with predefined configurations.
 
 <p align="center">
   <img src="docs/images/Setup.png" title="hover text">
@@ -30,9 +17,41 @@ docker-compose up -d
     <em>Deployment schema</em>
 </p>
 
-### Playing transition scenario
 
-* Election contract deployed by user
+## Setup
+
+Make sure you have Docker [installed](https://docs.docker.com/engine/install/) and running, and then follow these instructions to run the Hyperchains playground:
+
+1. Clone the repo:
+```
+git clone https://github.com/aeternity/hyperchains_playground.git
+```
+
+2. Setup activation criteria:
+```
+```
+
+3. Configure Bitcoin wallet:
+```
+```
+
+4. Run the network:
+```
+docker-compose up -d
+```
+
+5. Deploy an election contract on predefined address:
+
+```
+```
+
+6. Mine PoW blocks
+```
+```
+
+7. Switch to the new consensus and produce Hyperchains blocks
+```
+```
 
 <p align="center">
   <img src="docs/images/Playground.gif">

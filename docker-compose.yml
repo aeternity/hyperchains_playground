@@ -8,8 +8,8 @@ services:
       - ALL
     command: bitcoind -wallet=skunk
     volumes:
-     - ${PWD}/bitcoin:/root/.bitcoin
-     - ${PWD}/config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+     - /bitcoin:/root/.bitcoin
+     - /config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:
         ipv4_address: 10.7.0.11
@@ -23,7 +23,7 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - ${PWD}/config/aeternity/kyiv.yaml:/home/aeternity/aeternity.yaml
+      - /config/aeternity/kyiv.yaml:/home/aeternity/aeternity.yaml
       - kyiv_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
@@ -40,7 +40,7 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - ${PWD}/config/aeternity/krakow.yaml:/home/aeternity/aeternity.yaml
+      - /config/aeternity/krakow.yaml:/home/aeternity/aeternity.yaml
       - krakow_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
@@ -49,14 +49,15 @@ services:
         ipv4_address: 10.7.0.13
 
   munich:
-    build: aeternity
+    build:
+      context: https://github.com/aeternity/aeternity.git#hyperchains-playground
     hostname: munich
     environment:
       AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - ${PWD}/config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
+      - /config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
       - munich_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin

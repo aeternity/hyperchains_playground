@@ -49,16 +49,16 @@ services:
       vpcbr:
         ipv4_address: 10.7.0.13
 
-  tehran:
+  munich:
     build: aeternity
-    hostname: tehran
+    hostname: munich
     environment:
       AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - ${PWD}/config/aeternity/tehran.yaml:/home/aeternity/aeternity.yaml
-      - tehran_db:/home/aeternity/node/data/mnesia
+      - ${PWD}/config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
+      - munich_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
     networks:
@@ -68,7 +68,7 @@ services:
 volumes:
   kyiv_db:
   krakow_db:
-  tehran_db:
+  munich_db:
 
 networks:
   vpcbr:

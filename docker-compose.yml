@@ -4,7 +4,7 @@ services:
 
   bitcoin:
     build:
-      context: https://github.com/aeternity/aeternity/tree/hyperchains-playground
+      context: https://github.com/aeternity/hyperchains_playground.git
     cap_add:
       - ALL
     command: bitcoind -wallet=skunk
@@ -17,7 +17,7 @@ services:
 
   kyiv:
     build:
-      context: https://github.com/aeternity/aeternity/tree/hyperchains-playground
+      context: https://github.com/aeternity/hyperchains_playground.git
     hostname: kyiv
     environment:
       AETERNITY_CONFIG: /home/aeternity/aeternity.yaml
@@ -34,7 +34,7 @@ services:
 
   krakow:
     build:
-      context: https://github.com/aeternity/aeternity/tree/hyperchains-playground
+      context: https://github.com/aeternity/hyperchains_playground.git
     hostname: krakow
     environment:
       AETERNITY_CONFIG: /home/aeternity/aeternity.yaml

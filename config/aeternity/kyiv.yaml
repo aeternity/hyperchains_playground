@@ -1,4 +1,6 @@
----
+fork_management:
+    network_id: ae_hc_devnet
+
 peers:
     - aenode://pp_28uQUgsPcsy7TQwnRxhF8GMKU4ykFLKsgf4TwDwPMNaSCXwWV8@krakow:3015
     - aenode://pp_Dxq41rJN33j26MLqryvh7AnhuZywefWKEPBiiYu2Da2vDWLBq@munich:3015
@@ -34,11 +36,7 @@ mining:
 
 hyperchains:
   enabled: true
-  activation_criteria:
-    minimum_stake: 1
-    unique_delegates: 1
-    check_frequency: 1
-    confirmation_depth: 0
+  activation_criteria: { minimum_stake: 1, unique_delegates: 1, check_frequency: 1, confirmation_depth: 0}
   setup:
     mode: monolith
     primary:
@@ -58,6 +56,3 @@ hyperchains:
         fee: 0.00001
         # parent_hash
       pointer: "2882b43044c628772c47b557e1702984e44de88bca2ed7a59f088dc1d6c1fcf8"
-
-fork_management:
-    network_id: ae_hc_devnet

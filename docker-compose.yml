@@ -8,8 +8,8 @@ services:
       - ALL
     command: bitcoind -wallet=skunk
     volumes:
-     - /bitcoin:/root/.bitcoin
-     - /config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+     - ./bitcoin:/root/.bitcoin
+     - ./config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:
         ipv4_address: 10.7.0.11
@@ -23,7 +23,7 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - /config/aeternity/kyiv.yaml:/home/aeternity/aeternity.yaml
+      - ./config/aeternity/kyiv.yaml:/home/aeternity/aeternity.yaml
       - kyiv_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
@@ -40,7 +40,7 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - /config/aeternity/krakow.yaml:/home/aeternity/aeternity.yaml
+      - ./config/aeternity/krakow.yaml:/home/aeternity/aeternity.yaml
       - krakow_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
@@ -57,7 +57,7 @@ services:
     command: >
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
-      - /config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
+      - ./config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
       - munich_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin

@@ -1,22 +1,17 @@
-FROM alpine:3.13
+FROM ubuntu:18.04
 
-RUN apk add --no-cache \
-    wget \
-    autoconf \
-    automake \
-    make \
-    g++ \
-    libtool \
-    boost-dev \
-    libevent-dev \
-    db-dev \
-    pkgconf
+RUN apt-get update --fix-missing
 
-RUN wget https://github.com/bitcoin/bitcoin/archive/refs/tags/v0.21.1.tar.gz
-RUN tar xzf *.tar.gz
-RUN cd bitcoin* && \
-    ./autogen.sh && \
-    ./configure --disable-tests --disable-bench --with-incompatible-bdb && \
-    make -j 8 && \
-    make install
+RUN apt-get install build-essential autoconf libtool pkg-config libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libevent-dev libqt4-dev libcanberra-gtk-module libdb-dev libdb++-dev bsdmainutils -y
+
+RUN apt-get -y install git
+
+RUN git clone https://github.com/bitcoin/bitcoin.git
+
+WORKDIR bitcoin
+
+RUN ./autogen.sh
+RUN ./configure --with-incompatible-bdb
+RUN make
+RUN make install
 RUN mkdir -p /root/bitcoind-simnet/

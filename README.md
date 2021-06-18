@@ -22,8 +22,22 @@ git clone https://github.com/aeternity/hyperchains_playground.git
 ```
 
 #### 2. Setup activation criteria:
+
+Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains activation:
+
+- minimum balance of the staking contract required to start the HC
+- minimum amount of unique delegates required to start the HC
+- frequency at which we check the criteria
+- confirmation depth of the criteria
+ 
+```yaml
+### The default configuration if you want to skip this step
+
+hyperchains:
+  activation_criteria: { minimum_stake: 1, unique_delegates: 1, check_frequency: 1, confirmation_depth: 0}
 ```
-```
+
+For more detailed explanation read [activation network guide](#activation-network-guide)
 
 #### 3. Configure Bitcoin wallet:
 ```
@@ -56,6 +70,47 @@ docker-compose down
 <p align="center">
   <img src="docs/images/Playground.gif">
 </p>
+
+
+## Activation network guide
+
+The first HC PoS block MUST fulfill the activation criteria(the state on which we base the block on MUST fulfill the criteria) and the Nth-key predecessor must also fulfill them.
+For instance when the config is (100AE, 2, 10, 2) and the criteria were first meet at one microblock in the generation with height 19 then:
+
+- HC can't be enabled at the keyblock at height 20 - although the criteria were meet at the predecesor, the keyblock predecesor at height 18 doesn't pass the criteria
+- We never run the check at keyblocks with heights not divisible by 10(21-29 in the example) 
+- HC gets enabled at the keyblock at height 30 - the criteria pass at the direct predecessor and the keyblock at height 28 making the keyblock with height 30 eligible to be the first HC block - validators commit to block 29, block 30 is the FIRST to deviate from PoW
+
+More examples(assuming activation at height 30 and where we checked at height 30):
+
+```erlang
+%% * (100AE, 2, 10, 0)
+%%                     Chain:            K - m - m - K - m - m - K
+%%                     Height:           29  29  29  30  30  30  31
+%%                     First HC block:               X
+%%                     Criteria pass at:     X   X   X   X   X   X
+%%                     Criteria checks:           X
+%% * (100AE, 2, 10, 1)
+%%                     Chain:            K - m - m - K - m - m - K
+%%                     Height:           29  29  29  30  30  30  31
+%%                     First HC block:               X
+%%                     Criteria pass at: X   X   X   X   X   X   X
+%%                     Criteria checks:  X        X
+%% * (100AE, 2, 1, 1)
+%%                     Chain:                 K - m - K - m - m - K - m - m - K
+%%                     Height:                28  28  29  29  29  30  30  30  31
+%%                     First HC block:                            X
+%%                     Criteria pass at:          X   X   X   X   X   X   X   X
+%%                     Criteria checks at 30:         X       X
+%%                     Criteria checks at 29: X   X
+%% * (100AE, 2, 10, 2)
+%%                     Chain:                 K - m - K - m - m - K - m - m - K
+%%                     Height:                28  28  29  29  29  30  30  30  31
+%%                     First HC block:                            X
+%%                     Criteria pass at:      X   X   X   X   X   X   X   X   X
+%%                     Criteria checks at 30: X         
+```
+
 
 ## Configuration notes
 

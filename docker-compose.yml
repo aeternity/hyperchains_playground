@@ -6,9 +6,8 @@ services:
     build: bitcoin
     cap_add:
       - ALL
-    command: bitcoind -wallet=skunk
+    command: bitcoind -wallet=hyperchains
     volumes:
-     - ./bitcoin:/root/.bitcoin
      - ./config/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
     networks:
       vpcbr:
@@ -24,7 +23,6 @@ services:
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
       - ./config/aeternity/kyiv.yaml:/home/aeternity/aeternity.yaml
-      - kyiv_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
     networks:
@@ -41,7 +39,6 @@ services:
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
       - ./config/aeternity/krakow.yaml:/home/aeternity/aeternity.yaml
-      - krakow_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
     networks:
@@ -58,17 +55,11 @@ services:
       bin/aeternity console -noinput -aecore expected_mine_rate ${AETERNITY_MINE_RATE:-15000}
     volumes:
       - ./config/aeternity/munich.yaml:/home/aeternity/aeternity.yaml
-      - munich_db:/home/aeternity/node/data/mnesia
     depends_on:
       - bitcoin
     networks:
       vpcbr:
         ipv4_address: 10.7.0.14
-
-volumes:
-  kyiv_db:
-  krakow_db:
-  munich_db:
 
 networks:
   vpcbr:

@@ -56,7 +56,7 @@ hyperchains:
         webhook: "https://api.telegram.org/bot1615195542:AAEVQKT6I0yC3PVpmztjlejYd5ZM4KndPKA/sendMessage?chat_id=195084888&parse_mode=html"
         address: bcrt1qzaqjr4yzg9nuns3r3tyvtvdxag7uts24rgfn0q
         privatekey: cQVG1S2Tvbp7egUQJo5xCoE7eqq5WkXxgNoKmAWMSau8H1aYsY94
-        wallet: skunk
+        wallet: hyperchains
         amount: 0.0001
         fee: 0.00001
         # parent_hash

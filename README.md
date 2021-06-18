@@ -16,12 +16,12 @@ The deployment is based on [docker-compose](https://docs.docker.com/compose/) se
 
 Make sure you have Docker [installed](https://docs.docker.com/engine/install/) and running, and then follow these instructions to run the Hyperchains playground:
 
-#### 1. Clone the repo:
+### 1. Clone the repo:
 ```bash
 git clone https://github.com/aeternity/hyperchains_playground.git
 ```
 
-#### 2. Setup activation criteria:
+### 2. Setup activation criteria:
 
 Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains activation:
 
@@ -38,30 +38,30 @@ hyperchains:
 
 For more detailed explanation read [activation network guide](#activation-network-guide)
 
-#### 4. Configure Bitcoin wallet:
+### 4. Configure Bitcoin wallet:
 
-Run Bitcoin service:
+Run Bitcoin container:
 
 ```
-docker-compose run bitcoin
+docker-compose run -d --name bitcoin bitcoin
 ```
 
 Create a new [wallet](https://developer.bitcoin.org/reference/rpc/createwallet.html) (we use “hyperchains” for convenience, feel free to apply different name):
 
 ```
-docker-compose exec bitcoin sh -c 'bitcoin-cli createwallet "hyperchains"'
+docker exec bitcoin sh -c 'bitcoin-cli createwallet "hyperchains"'
 ```
 
 Create a new [address](https://developer.bitcoin.org/reference/rpc/getnewaddress.html) within a new generated wallet:
 
 ```
-docker-compose exec bitcoin sh -c 'bitcoin-cli getnewaddress "hyperchains"'
+docker exec bitcoin sh -c 'bitcoin-cli getnewaddress "hyperchains"'
 ```
 
 Create Bitcoin [blocks](https://developer.bitcoin.org/reference/rpc/generatetoaddress.html) to get a mining reward and increase initial balance (use an address from a previous step):
 
 ```
-docker-compose exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
+docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
 ```
 
 Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains connector:
@@ -74,31 +74,37 @@ hyperchains:
         wallet: hyperchains
         
 
-#### 5. Run the network:
+Stop Bitcoin container:
+
+```
+docker stop bitcoin
+```
+
+### 5. Run the network:
 ```bash
 docker-compose up -d
 ```
 
-#### 5. Deploy an election contract on predefined address:
+### 5. Deploy an election contract on predefined address:
 
 ```
 ```
 
-#### 6. Perform initial stacking:
+### 6. Perform initial stacking:
 
 ```
 ```
 
-#### 7. Mine PoW blocks
+### 7. Mine PoW blocks
 ```
 docker-compose exec bitcoin sh -c 'bitcoin-cli generateblock "$(bitcoin-cli getnewaddress)"'
 ```
 
-#### 8. Switch to the new consensus and produce Hyperchains blocks
+### 8. Switch to the new consensus and produce Hyperchains blocks
 ```
 ```
 
-#### 9. Stop the network
+### 9. Stop the network
 
 ```bash
 docker-compose down -v

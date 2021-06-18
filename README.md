@@ -66,13 +66,14 @@ docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps
 
 Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains connector:
 
+```yaml
 hyperchains:
   setup:
     primary:
       args:
         address: bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele
         wallet: hyperchains
-        
+```        
 
 Stop Bitcoin container:
 

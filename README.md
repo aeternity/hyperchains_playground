@@ -39,11 +39,11 @@ hyperchains:
 
 For more detailed explanation read [activation network guide](#activation-network-guide)
 
-#### 3. Configure Bitcoin wallet:
+#### 4. Configure Bitcoin wallet:
 ```
 ```
 
-#### 4. Run the network:
+#### 5. Run the network:
 ```bash
 docker-compose up -d
 ```
@@ -53,16 +53,21 @@ docker-compose up -d
 ```
 ```
 
-#### 6. Mine PoW blocks
+#### 6. Perform initial stacking:
+
+```
+```
+
+#### 7. Mine PoW blocks
 ```
 docker-compose exec bitcoin sh -c 'bitcoin-cli generateblock "$(bitcoin-cli getnewaddress)"'
 ```
 
-#### 7. Switch to the new consensus and produce Hyperchains blocks
+#### 8. Switch to the new consensus and produce Hyperchains blocks
 ```
 ```
 
-#### 8. Stop the network
+#### 9. Stop the network
 ```bash
 docker-compose down
 ```

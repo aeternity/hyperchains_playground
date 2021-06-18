@@ -32,6 +32,11 @@ chain:
 
 mining:
     beneficiary: "ak_twR4h7dEcUtc2iSEDv8kB7UFJJDGiEDQCXr85C3fYF8FdVdyo"
+    beneficiary_reward_delay: 2
+    cuckoo:
+        edge_bits: 15
+        miners:
+            - executable: mean15-generic
     autostart: true
 
 hyperchains:

@@ -21,26 +21,29 @@ Make sure you have Docker [installed](https://docs.docker.com/engine/install/) a
 git clone https://github.com/aeternity/hyperchains_playground.git
 ```
 
-### 2. Setup activation criteria:
+### 2. (optional) Set activation criteria:
 
-Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains activation:
+Open the config directory (hyperchains_playground/config/aeternity) and set same Hyperchains activation criteria in each node config file:
 
-- minimum balance of the staking contract required to start the HC
-- minimum amount of unique delegates required to start the HC
-- frequency at which we check the criteria
-- confirmation depth of the criteria
+`hyperchains: activation crateria:`
+- `minimum_stake` - minimum balance of the staking contract required to start the HC
+- `unique_delegates` - minimum amount of unique validators required to start the HC
+- `check_frequency` - frequency at which we check the criteria
+- `confirmation_depth` - confirmation depth of the criteria
  
+Example configuration:
 ```yaml
-### The default configuration if you want to skip this step
 hyperchains:
   activation_criteria: { minimum_stake: 1, unique_delegates: 1, check_frequency: 1, confirmation_depth: 0}
 ```
 
 For more detailed explanation read [activation network guide](#activation-network-guide)
 
-### 4. Configure Bitcoin wallet:
+### 3. Configure Bitcoin wallet:
 
-Run Bitcoin container:
+Switch to the root directory of hyperchains_playground repository.
+
+Build&run Bitcoin container:
 
 ```
 docker-compose run -d --name bitcoin bitcoin

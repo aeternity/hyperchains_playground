@@ -42,25 +42,25 @@ For more detailed explanation read [activation network guide](#activation-networ
 
 Run Bitcoin container:
 
-```
+```bash
 docker-compose run -d --name bitcoin bitcoin
 ```
 
 Create a new [wallet](https://developer.bitcoin.org/reference/rpc/createwallet.html) (we use “hyperchains” for convenience, feel free to apply different name):
 
-```
+```bash
 docker exec bitcoin sh -c 'bitcoin-cli createwallet "hyperchains"'
 ```
 
 Create a new [address](https://developer.bitcoin.org/reference/rpc/getnewaddress.html) within a new generated wallet:
 
-```
+```bash
 docker exec bitcoin sh -c 'bitcoin-cli getnewaddress "hyperchains"'
 ```
 
 Create Bitcoin [blocks](https://developer.bitcoin.org/reference/rpc/generatetoaddress.html) to get a mining reward and increase initial balance (use an address from a previous step):
 
-```
+```bash
 docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
 ```
 
@@ -77,32 +77,34 @@ hyperchains:
 
 Stop Bitcoin container:
 
-```
+```bash
 docker stop bitcoin
 ```
 
-### 5. Run the network:
+### 5. Configure initial stacking:
+
+Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and configure initial stake (you can play with different proportions on each node ([kyiv](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/kyiv.yaml), [krakow](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/krakow.yaml), [munich](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/munich.yaml)) to make an impact on the election result):
+
+```yaml
+hyperchains:
+  stake: 1000
+```
+
+### 6. Run the network:
 ```bash
 docker-compose up -d
 ```
 
-### 5. Deploy an election contract on predefined address:
-
-```
-```
-
-### 6. Perform initial stacking:
-
-```
+### 7. Mine PoW blocks to achive Hyperchains activation criteria 
+```bash
+docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
 ```
 
-### 7. Mine PoW blocks
-```
-docker-compose exec bitcoin sh -c 'bitcoin-cli generateblock "$(bitcoin-cli getnewaddress)"'
-```
-
-### 8. Switch to the new consensus and produce Hyperchains blocks
-```
+### 8. Check the network transition and distribution of Hyperchains PoS blocks
+```bash
+docker exec kyiv sh -c 'curl http://localhost:3002/v2/key-blocks/current'
+docker exec krakow sh -c 'curl http://localhost:3002/v2/key-blocks/current'
+docker exec munich sh -c 'curl http://localhost:3002/v2/key-blocks/current'
 ```
 
 ### 9. Stop the network

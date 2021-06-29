@@ -21,7 +21,7 @@ Make sure you have Docker [installed](https://docs.docker.com/engine/install/) a
 git clone https://github.com/aeternity/hyperchains_playground.git
 ```
 
-### 2. Setup activation criteria:
+### 2. Setup activation criteria (optional):
 
 Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and setup Hyperchains activation:
 
@@ -29,7 +29,7 @@ Open the config [folder](https://github.com/aeternity/hyperchains_playground/tre
 - minimum amount of unique delegates required to start the HC
 - frequency at which we check the criteria
 - confirmation depth of the criteria
- 
+
 ```yaml
 ### The default configuration if you want to skip this step
 hyperchains:
@@ -58,7 +58,7 @@ Create a new [address](https://developer.bitcoin.org/reference/rpc/getnewaddress
 docker exec bitcoin sh -c 'bitcoin-cli getnewaddress "hyperchains"'
 ```
 
-Create Bitcoin [blocks](https://developer.bitcoin.org/reference/rpc/generatetoaddress.html) to get a mining reward and increase initial balance (use an address from a previous step):
+Create Bitcoin [blocks](https://developer.bitcoin.org/reference/rpc/generatetoaddress.html) to get a mining reward and increase initial balance (use the address from the previous step):
 
 ```bash
 docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
@@ -73,7 +73,7 @@ hyperchains:
       args:
         address: bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele
         wallet: hyperchains
-```        
+```
 
 Stop Bitcoin container:
 
@@ -81,7 +81,7 @@ Stop Bitcoin container:
 docker stop bitcoin
 ```
 
-### 5. Configure initial stacking:
+### 5. Configure initial stacking (optional):
 
 Open the config [folder](https://github.com/aeternity/hyperchains_playground/tree/master/config/aeternity) and configure initial stake (you can play with different proportions on each node ([kyiv](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/kyiv.yaml), [krakow](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/krakow.yaml), [munich](https://github.com/aeternity/hyperchains_playground/blob/master/config/aeternity/munich.yaml)) to make an impact on the election result):
 
@@ -95,16 +95,16 @@ hyperchains:
 docker-compose up -d
 ```
 
-### 7. Mine PoW blocks to achive Hyperchains activation criteria 
+### 7. Mine PoW blocks to achive Hyperchains activation criteria
 ```bash
-docker exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
+docker-compose exec bitcoin sh -c 'bitcoin-cli generatetoaddress 200 "bcrt1qmtl7a8yl4pps2tvynzw8gx6v6wpewnc8yajele"'
 ```
 
 ### 8. Check the network transition and distribution of Hyperchains PoS blocks
 ```bash
-docker exec kyiv sh -c 'curl http://localhost:3002/v2/key-blocks/current'
-docker exec krakow sh -c 'curl http://localhost:3002/v2/key-blocks/current'
-docker exec munich sh -c 'curl http://localhost:3002/v2/key-blocks/current'
+docker-compose exec kyiv sh -c 'curl http://localhost:3002/v2/key-blocks/current'
+docker-compose exec krakow sh -c 'curl http://localhost:3002/v2/key-blocks/current'
+docker-compose exec munich sh -c 'curl http://localhost:3002/v2/key-blocks/current'
 ```
 
 ### 9. Stop the network
@@ -124,7 +124,7 @@ The first HC PoS block MUST fulfill the activation criteria(the state on which w
 For instance when the config is (100AE, 2, 10, 2) and the criteria were first meet at one microblock in the generation with height 19 then:
 
 - HC can't be enabled at the keyblock at height 20 - although the criteria were meet at the predecesor, the keyblock predecesor at height 18 doesn't pass the criteria
-- We never run the check at keyblocks with heights not divisible by 10(21-29 in the example) 
+- We never run the check at keyblocks with heights not divisible by 10(21-29 in the example)
 - HC gets enabled at the keyblock at height 30 - the criteria pass at the direct predecessor and the keyblock at height 28 making the keyblock with height 30 eligible to be the first HC block - validators commit to block 29, block 30 is the FIRST to deviate from PoW
 
 More examples(assuming activation at height 30 and where we checked at height 30):
@@ -154,7 +154,7 @@ More examples(assuming activation at height 30 and where we checked at height 30
 %%                     Height:                28  28  29  29  29  30  30  30  31
 %%                     First HC block:                            X
 %%                     Criteria pass at:      X   X   X   X   X   X   X   X   X
-%%                     Criteria checks at 30: X         
+%%                     Criteria checks at 30: X
 ```
 
 

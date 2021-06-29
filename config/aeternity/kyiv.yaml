@@ -42,6 +42,7 @@ mining:
 hyperchains:
   enabled: true
   activation_criteria: { minimum_stake: 1, unique_delegates: 1, check_frequency: 1, confirmation_depth: 0}
+  stake: 1000
   setup:
     mode: monolith
     primary:

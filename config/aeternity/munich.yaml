@@ -42,6 +42,7 @@ mining:
 hyperchains:
   enabled: true
   activation_criteria: { minimum_stake: 1, unique_delegates: 1, check_frequency: 1, confirmation_depth: 0}
+  stake: 1000
   setup:
     mode: monolith
     primary:
@@ -61,4 +62,3 @@ hyperchains:
         fee: 0.00001
         # parent_hash
       pointer: "0053f3298c84b03a6b6bb5a3403620b778f217343e7b7fec08b32e4f4d298790"
-      
